@@ -123,6 +123,10 @@ animation_radius = 60   # Radius of circular motion
 center_x = _WIDTH // 2
 center_y = _HEIGHT // 2
 
+# Background color animation
+color_angle = 0
+color_speed = 0.3  # Color change speed
+
 print('end')
 
 import utime as time
@@ -132,11 +136,26 @@ while True:
     start_time = time.ticks_ms()
     time.sleep_ms(1)  # sleep for 1 ms
     
+    # Update background color animation
+    # color_angle += color_speed
+    # if color_angle >= 2 * math.pi:
+    #     color_angle = 0
+    
+    # # Calculate RGB values for background color (smooth color transition)
+    # red = int(127 + 127 * math.sin(color_angle))
+    # green = int(127 + 127 * math.sin(color_angle + 2 * math.pi / 3))
+    # blue = int(127 + 127 * math.sin(color_angle + 4 * math.pi / 3))
+    
+    # # Update background color
+    # bg_color = (red << 16) | (green << 8) | blue
+    # scrn.set_style_bg_color(lv.color_hex(bg_color), 0)
+    
+    
     # Update animation
     animation_angle += animation_speed
     if animation_angle >= 2 * math.pi:
         animation_angle = 0
-    
+        
     # Calculate new position for circle
     offset_x = int(animation_radius * math.cos(animation_angle))
     offset_y = int(animation_radius * math.sin(animation_angle))
