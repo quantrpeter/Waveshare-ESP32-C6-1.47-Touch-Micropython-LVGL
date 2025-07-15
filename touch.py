@@ -3,7 +3,9 @@ from micropython import const
 import machine
 from time import sleep
 import jd9853
+import axs5106
 import lvgl as lv
+from i2c import I2C
 
 lv.init()
 
@@ -21,9 +23,12 @@ _HOST = 1  # SPI2
 
 _LCD_CS = 14
 _LCD_FREQ = 2000000
+_TOUCH_FREQ = 2000000
+_TOUCH_CS = 21
 
 _OFFSET_X = 34
 _OFFSET_Y = 0
+
 
 print('s1');
 spi_bus = machine.SPI.Bus(
@@ -64,6 +69,17 @@ display.init()
 display.set_color_inversion(True)
 # display.set_rotation(lv.DISPLAY_ROTATION._90)
 display.set_backlight(100)
+
+i2c_bus = I2C.Bus(host=1, sda=18, scl=19)
+touch_i2c = I2C.Device(i2c_bus, axs5106.I2C_ADDR, axs5106.BITS)
+indev = axs5106.AXS5106(touch_i2c,
+                        debug=True,
+                        startup_rotation=lv.DISPLAY_ROTATION._90,
+                        reset_pin=20
+                        )
+if not indev.is_calibrated:
+	indev.calibrate()
+
 
 scrn = lv.screen_active()
 scrn.set_style_bg_color(lv.color_hex(0xff0000), 0)
