@@ -70,68 +70,20 @@ display.set_color_inversion(True)
 # display.set_rotation(lv.DISPLAY_ROTATION._90)
 display.set_backlight(100)
 
-i2c_bus = I2C.Bus(host=1, sda=18, scl=19)
+i2c_bus = I2C.Bus(host=0, sda=18, scl=19)
 touch_i2c = I2C.Device(i2c_bus, axs5106.I2C_ADDR, axs5106.BITS)
 indev = axs5106.AXS5106(touch_i2c,
                         debug=True,
                         startup_rotation=lv.DISPLAY_ROTATION._90,
                         reset_pin=20
                         )
-if not indev.is_calibrated:
-	indev.calibrate()
+# if not indev.is_calibrated:
+#indev.calibrate()
 
 
-scrn = lv.screen_active()
-scrn.set_style_bg_color(lv.color_hex(0xff0000), 0)
 
-label = lv.label(scrn)
-label.set_text('HELLO')
-label.set_style_text_color(lv.color_hex(0xffffff), 0)
-label.align(lv.ALIGN.CENTER, 0, 30)
 
-# Draw a rectangle
-rect1 = lv.obj(scrn)
-rect1.set_size(10, 10)
-rect1.set_style_bg_color(lv.color_hex(0x00aa00), 0)
-rect1.set_style_border_color(lv.color_hex(0xffffff), 0)
-rect1.set_style_border_width(1, 0)
-rect1.set_style_radius(0, 0)
-rect1.align(lv.ALIGN.TOP_LEFT, 0, 0)
-
-rect2 = lv.obj(scrn)
-rect2.set_size(10, 10)
-rect2.set_style_bg_color(lv.color_hex(0xaa0000), 0)
-rect2.set_style_border_color(lv.color_hex(0xffffff), 0)
-rect2.set_style_border_width(1, 0)
-rect2.set_style_radius(0, 0)
-rect2.align(lv.ALIGN.TOP_RIGHT, 0, 0)
-
-rect3 = lv.obj(scrn)
-rect3.set_size(10, 10)
-rect3.set_style_bg_color(lv.color_hex(0xaa00aa), 0)
-rect3.set_style_border_color(lv.color_hex(0xffffff), 0)
-rect3.set_style_border_width(1, 0)
-rect3.set_style_radius(0, 0)
-rect3.align(lv.ALIGN.BOTTOM_RIGHT, 0, 0)
-
-rect4 = lv.obj(scrn)
-rect4.set_size(10, 10)
-rect4.set_style_bg_color(lv.color_hex(0x0000aa), 0)
-rect4.set_style_border_color(lv.color_hex(0xffffff), 0)
-rect4.set_style_border_width(1, 0)
-rect4.set_style_radius(0, 0)
-rect4.align(lv.ALIGN.BOTTOM_LEFT, 0, 0)
-
-# Draw a circle
-circle = lv.obj(scrn)
-circle.set_size(50, 50)
-circle.set_style_bg_color(lv.color_hex(0x0000ff), 0)
-circle.set_style_border_color(lv.color_hex(0xff00ff), 0)
-circle.set_style_border_width(3, lv.STATE.DEFAULT)
-circle.set_style_radius(25, 0)  # Make it circular (radius = half of width/height)
-circle.align(lv.ALIGN.CENTER, 0, -10)
-
-print('end')
+# scrn = lv.screen_active()
 
 import utime as time
 time_passed = 1000
